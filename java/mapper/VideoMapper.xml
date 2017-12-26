@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.VideoMapper">
+	<resultMap id="BaseResultMap" type="entity.Video">
+		<id column="VIDEOID" property="videoid" jdbcType="DECIMAL" />
+		<result column="VIDEONAME" property="videoname" jdbcType="VARCHAR" />
+		<result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+		<result column="IMGURL" property="imgurl" jdbcType="VARCHAR" />
+		<result column="FILEURL" property="fileurl" jdbcType="VARCHAR" />
+		<result column="FILESIZE" property="filesize" jdbcType="VARCHAR" />
+		<result column="FORMAT" property="format" jdbcType="VARCHAR" />
+		<result column="PLAY" property="play" jdbcType="DECIMAL" />
+		<result column="COLLECTION" property="collection" jdbcType="DECIMAL" />
+		<result column="UPTIME" property="uptime" jdbcType="VARCHAR" />
+		<result column="TYPEID" property="typeid" jdbcType="DECIMAL" />
+		<result column="VIDEOLENGTH" property="videolength" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		VIDEOID, VIDEONAME, AUTHOR, IMGURL, FILEURL, FILESIZE,
+		FORMAT, PLAY,
+		COLLECTION,
+		UPTIME, TYPEID, VIDEOLENGTH
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="entity.VideoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from SCOTT.TB_VIDEO
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from SCOTT.TB_VIDEO
+		where VIDEOID = #{videoid,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		SCOTT.TB_VIDEO
+		where VIDEOID = #{videoid,jdbcType=DECIMAL}
+	</delete>
+	<delete id="deleteByExample" parameterType="entity.VideoExample">
+		delete from SCOTT.TB_VIDEO
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="entity.Video">
+		insert into SCOTT.TB_VIDEO
+		(VIDEOID, VIDEONAME, AUTHOR,
+		IMGURL, FILEURL, FILESIZE,
+		FORMAT, PLAY,
+		COLLECTION,
+		UPTIME, TYPEID, VIDEOLENGTH
+		)
+		values
+		(#{videoid,jdbcType=DECIMAL}, #{videoname,jdbcType=VARCHAR},
+		#{author,jdbcType=VARCHAR},
+		#{imgurl,jdbcType=VARCHAR},
+		#{fileurl,jdbcType=VARCHAR}, #{filesize,jdbcType=VARCHAR},
+		#{format,jdbcType=VARCHAR}, #{play,jdbcType=DECIMAL},
+		#{collection,jdbcType=DECIMAL},
+		#{uptime,jdbcType=VARCHAR},
+		#{typeid,jdbcType=DECIMAL}, #{videolength,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertVideo" parameterType="entity.Video">
+		<selectKey resultType="java.lang.Integer" keyProperty="videoid"
+			order="BEFORE">
+			select seq_videoid.nextval from dual
+		</selectKey>
+		insert into SCOTT.TB_VIDEO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			VIDEOID,
+			<if test="videoname!= null">
+				VIDEONAME,
+			</if>
+			<if test="author!= null">
+				AUTHOR,
+			</if>
+			<if test="imgurl!= null">
+				IMGURL,
+			</if>
+			<if test="fileurl!= null">
+				FILEURL,
+			</if>
+			<if test="filesize!= null">
+				FILESIZE,
+			</if>
+			<if test="format!= null">
+				FORMAT,
+			</if>
+			<if test="play!= null">
+				PLAY,
+			</if>
+			<if test="collection!= null">
+				COLLECTION,
+			</if>
+			<if test="uptime!= null">
+				UPTIME,
+			</if>
+			<if test="typeid!= null">
+				TYPEID,
+			</if>
+			<if test="videolength!= null">
+				VIDEOLENGTH,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{videoid,jdbcType=DECIMAL},
+			<if test="videoname != null">
+				#{videoname,jdbcType=VARCHAR},
+			</if>
+			<if test="author!= null">
+				#{author ,jdbcType=VARCHAR},
+			</if>
+			<if test="imgurl!= null">
+				#{imgurl,jdbcType=VARCHAR},
+			</if>
+			<if test="fileurl!= null">
+				#{fileurl,jdbcType=VARCHAR},
+			</if>
+			<if test="filesize!= null">
+				#{filesize,jdbcType=VARCHAR},
+			</if>
+			<if test="format!= null">
+				#{format,jdbcType=VARCHAR},
+			</if>
+			<if test="play!= null">
+				#{play,jdbcType=DECIMAL},
+			</if>
+			<if test="collection!= null">
+				#{collection,jdbcType=DECIMAL},
+			</if>
+			<if test="uptime!= null">
+				#{uptime,jdbcType=VARCHAR},
+			</if>
+			<if test="typeid!= null">
+				#{typeid,jdbcType=DECIMAL},
+			</if>
+			<if test="videolength!= null">
+				#{videolength,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<insert id="insertSelective" parameterType="entity.Video">
+		insert into SCOTT.TB_VIDEO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="videoid != null">
+				VIDEOID,
+			</if>
+			<if test="videoname != null">
+				VIDEONAME,
+			</if>
+			<if test="author != null">
+				AUTHOR,
+			</if>
+			<if test="imgurl != null">
+				IMGURL,
+			</if>
+			<if test="fileurl != null">
+				FILEURL,
+			</if>
+			<if test="filesize != null">
+				FILESIZE,
+			</if>
+			<if test="format != null">
+				FORMAT,
+			</if>
+			<if test="play != null">
+				PLAY,
+			</if>
+			<if test="collection != null">
+				COLLECTION,
+			</if>
+			<if test="uptime != null">
+				UPTIME,
+			</if>
+			<if test="typeid != null">
+				TYPEID,
+			</if>
+			<if test="videolength != null">
+				VIDEOLENGTH,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="videoid != null">
+				#{videoid,jdbcType=DECIMAL},
+			</if>
+			<if test="videoname != null">
+				#{videoname,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=VARCHAR},
+			</if>
+			<if test="imgurl != null">
+				#{imgurl,jdbcType=VARCHAR},
+			</if>
+			<if test="fileurl != null">
+				#{fileurl,jdbcType=VARCHAR},
+			</if>
+			<if test="filesize != null">
+				#{filesize,jdbcType=VARCHAR},
+			</if>
+			<if test="format != null">
+				#{format,jdbcType=VARCHAR},
+			</if>
+			<if test="play != null">
+				#{play,jdbcType=DECIMAL},
+			</if>
+			<if test="collection != null">
+				#{collection,jdbcType=DECIMAL},
+			</if>
+			<if test="uptime != null">
+				#{uptime,jdbcType=VARCHAR},
+			</if>
+			<if test="typeid != null">
+				#{typeid,jdbcType=DECIMAL},
+			</if>
+			<if test="videolength != null">
+				#{videolength,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="entity.VideoExample"
+		resultType="java.lang.Integer">
+		select count(*) from SCOTT.TB_VIDEO
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update SCOTT.TB_VIDEO
+		<set>
+			<if test="record.videoid != null">
+				VIDEOID = #{record.videoid,jdbcType=DECIMAL},
+			</if>
+			<if test="record.videoname != null">
+				VIDEONAME = #{record.videoname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.author != null">
+				AUTHOR = #{record.author,jdbcType=VARCHAR},
+			</if>
+			<if test="record.imgurl != null">
+				IMGURL = #{record.imgurl,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fileurl != null">
+				FILEURL = #{record.fileurl,jdbcType=VARCHAR},
+			</if>
+			<if test="record.filesize != null">
+				FILESIZE = #{record.filesize,jdbcType=VARCHAR},
+			</if>
+			<if test="record.format != null">
+				FORMAT = #{record.format,jdbcType=VARCHAR},
+			</if>
+			<if test="record.play != null">
+				PLAY = #{record.play,jdbcType=DECIMAL},
+			</if>
+			<if test="record.collection != null">
+				COLLECTION = #{record.collection,jdbcType=DECIMAL},
+			</if>
+			<if test="record.uptime != null">
+				UPTIME = #{record.uptime,jdbcType=VARCHAR},
+			</if>
+			<if test="record.typeid != null">
+				TYPEID = #{record.typeid,jdbcType=DECIMAL},
+			</if>
+			<if test="record.videolength != null">
+				VIDEOLENGTH = #{record.videolength,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update SCOTT.TB_VIDEO
+		set VIDEOID = #{record.videoid,jdbcType=DECIMAL},
+		VIDEONAME = #{record.videoname,jdbcType=VARCHAR},
+		AUTHOR =
+		#{record.author,jdbcType=VARCHAR},
+		IMGURL =
+		#{record.imgurl,jdbcType=VARCHAR},
+		FILEURL =
+		#{record.fileurl,jdbcType=VARCHAR},
+		FILESIZE =
+		#{record.filesize,jdbcType=VARCHAR},
+		FORMAT =
+		#{record.format,jdbcType=VARCHAR},
+		PLAY =
+		#{record.play,jdbcType=DECIMAL},
+		COLLECTION =
+		#{record.collection,jdbcType=DECIMAL},
+		UPTIME =
+		#{record.uptime,jdbcType=VARCHAR},
+		TYPEID =
+		#{record.typeid,jdbcType=DECIMAL},
+		VIDEOLENGTH =
+		#{record.videolength,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="entity.Video">
+		update SCOTT.TB_VIDEO
+		<set>
+			<if test="videoname != null">
+				VIDEONAME = #{videoname,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				AUTHOR = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="imgurl != null">
+				IMGURL = #{imgurl,jdbcType=VARCHAR},
+			</if>
+			<if test="fileurl != null">
+				FILEURL = #{fileurl,jdbcType=VARCHAR},
+			</if>
+			<if test="filesize != null">
+				FILESIZE = #{filesize,jdbcType=VARCHAR},
+			</if>
+			<if test="format != null">
+				FORMAT = #{format,jdbcType=VARCHAR},
+			</if>
+			<if test="play != null">
+				PLAY = #{play,jdbcType=DECIMAL},
+			</if>
+			<if test="collection != null">
+				COLLECTION = #{collection,jdbcType=DECIMAL},
+			</if>
+			<if test="uptime != null">
+				UPTIME = #{uptime,jdbcType=VARCHAR},
+			</if>
+			<if test="typeid != null">
+				TYPEID = #{typeid,jdbcType=DECIMAL},
+			</if>
+			<if test="videolength != null">
+				VIDEOLENGTH = #{videolength,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where VIDEOID = #{videoid,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="entity.Video">
+		update
+		SCOTT.TB_VIDEO
+		set VIDEONAME = #{videoname,jdbcType=VARCHAR},
+		AUTHOR =
+		#{author,jdbcType=VARCHAR},
+		IMGURL = #{imgurl,jdbcType=VARCHAR},
+		FILEURL = #{fileurl,jdbcType=VARCHAR},
+		FILESIZE =
+		#{filesize,jdbcType=VARCHAR},
+		FORMAT = #{format,jdbcType=VARCHAR},
+		PLAY
+		= #{play,jdbcType=DECIMAL},
+		COLLECTION =
+		#{collection,jdbcType=DECIMAL},
+		UPTIME = #{uptime,jdbcType=VARCHAR},
+		TYPEID = #{typeid,jdbcType=DECIMAL},
+		VIDEOLENGTH =
+		#{videolength,jdbcType=VARCHAR}
+		where VIDEOID =
+		#{videoid,jdbcType=DECIMAL}
+	</update>
+
+	<select id="selectByPlayDeslimit" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from (select * from SCOTT.TB_VIDEO order by play desc)
+		where ROWNUM &lt;= 10
+	</select>
+
+	<select id="selectByCollDeslimit" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from (select * from SCOTT.TB_VIDEO order by collection desc)
+		where ROWNUM &lt;= 10
+	</select>
+
+	<select id="selectByTypeRanlimit" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM ( SELECT
+		<include refid="Base_Column_List" />
+		FROM SCOTT.TB_VIDEO
+		where typeid=${typeid} and ROWNUM &lt;= 11
+		ORDER BY
+		DBMS_RANDOM.random)
+	</select>
+
+	<select id="selectByTypeToplimit" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from SCOTT.TB_VIDEO
+		where ROWNUM &lt;= 12 and typeid=${typeid}
+		order by
+		play desc
+	</select>
+
+	<select id="selectByTypeFir" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select t.* from tb_video t where t.play=(select MAX(play) from tb_video
+		where TYPEID=t.TYPEID)
+	</select>
+
+</mapper>

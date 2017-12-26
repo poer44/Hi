@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd    
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd    
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<context:component-scan base-package="*" />
+	<!-- 相当于注册了DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 
+		两个bean，是springmvc开发所必须的 -->
+	<mvc:annotation-driven />
+	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ MyBatis配置 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- mybatis配置 连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@192.168.103.37:1521:orcl"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="oracle"></property>
+	</bean>
+	<!-- mybatis基本配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+		<property name="typeAliasesPackage" value="entity"></property>
+		<!-- 分页配置 -->
+		<property name="plugins">
+			<array>
+				<!-- 5.0以后请用PageInterceptor,value里头有也改用helperDialect -->
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<!-- 目前支持Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库分页 -->
+					<property name="properties">
+						<value>
+							helperDialect=oracle
+							reasonable=true
+							supportMethodsArguments=true
+							params=count=countSql
+							autoRuntimeDialect=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+	<!-- 配置dao接口 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="dao"></property>
+	</bean>
+	<!-- 配置事务 -->
+	<bean id="tm"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="tm" />
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+
+	<!-- 拦截器配置 -->
+	<!-- <mvc:interceptors> <bean class="interceptor.LogInterceptor"></bean> 
+		<mvc:interceptor> <mvc:mapping path="/**"/> <bean class="interceptor.MyInterceptor"></bean> 
+		</mvc:interceptor> </mvc:interceptors> -->
+
+	<!-- 异常处理配置 -->
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
+		<property name="defaultErrorView" value="error"></property> <property name="exceptionAttribute" 
+		value="ex"></property> <property name="exceptionMappings"> <props> <prop 
+		key="exception.MyException">myerror</prop> </props> </property> </bean> -->
+	
+	<!-- html视图解析器 -->
+	<bean id="htmlViewResovler"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".html"></property>
+		<property name="viewClass" value="utils.HtmlResourceView"></property>
+		<property name="contentType" value="text/html; charset=utf-8"></property>
+		<property name="order" value="0"></property>
+	</bean>
+	
+	<!-- jsp视图解析器 -->
+	<bean id="jspViewResovler" 
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 指定WEB-INF路径可以断绝外界直接访问。除非用转发的形式！而spring就是转发，这样就能保护页面 -->
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="order" value="1"></property>
+	</bean>
+	
+</beans>

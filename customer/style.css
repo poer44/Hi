@@ -1,0 +1,87 @@
+*{margin: 0;padding: 0;list-style:none;border:none;}
+body {
+	font-family: "microsoft yahei" !important;
+	background-color: #fff;
+}
+
+
+h2 {
+	display: block;
+	font-size: 1.3em;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: normal;
+	margin: 15px 0px 20px;
+}
+
+:focus {
+	outline: none;
+}
+
+h3 {
+	font-weight: normal;
+	text-align: center;
+	font-size: 2em;
+	text-transform: uppercase;
+	color: #5A0404;
+	margin: 30px 0px 20px;
+}
+
+
+#container {
+	width: 800px;
+	margin: 0 auto;
+}
+
+#search-box {
+	position: relative;
+	width: 400px;
+	margin: 0 auto;
+	display: inline;
+}
+
+
+.wrapper {
+	width: 750px;
+	margin: 0 auto;
+}
+
+#message {
+	margin-top: 40px;
+	margin-bottom: 50px;
+	font-size: 20px;
+	text-align: center;
+}
+.page1{
+	height: 80px;
+	margin-top: 10px;
+}
+.page1>a{
+	margin-left: 10px;
+	 padding-top: 5px;
+	 float: left;
+	 font-size: 15px;
+	 color: #c5c0c1;
+}
+.page1 ul {
+	margin-left: 110px;
+}
+.page1 ul li {
+	float: left;
+	font-size: 30px;
+	padding:0 10px;
+	background-color: #d3cecf;
+	margin-left: 10px;
+	border-radius: 5px 5px 5px 5px;
+}
+
+.page1 ul li a {
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-size: 15px;
+	font-weight: 100;
+}
+.page1 ul li a:hover {
+}

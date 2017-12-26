@@ -1,0 +1,122 @@
+@charset "utf-8";
+/* CSS Document */
+.form-horizontal .has-feedback .form-control-feedback {
+	top:0;
+}
+
+input + label.error{
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+i.form-control-feedback {
+    pointer-events: auto;
+    right:15px;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    cursor: text;
+    background-color: #fff;
+    opacity: 1;
+}
+div.form-group > label{
+	cursor: text;
+}
+
+label.error {
+    font-weight: normal;
+    cursor: text;
+    margin-top:5px;
+}
+label.remember{
+	line-height: 20px;
+	font-weight: normal;
+	margin-top:5px;
+	display: inline-block !important;
+}
+label.accept{
+	line-height: 20px;
+	font-weight: normal;
+	display: block;
+}
+label.accept > span{
+	color:#333;
+	cursor: text;
+
+}
+label.control-label{
+	color:#666;
+}
+.form-horizontal .control-label.accept {
+    padding-top: 0; 
+    text-align: left;
+}
+#vemail{
+	position: absolute;
+	top:0;
+	left:0;
+}
+/* iphone5 */
+@media (min-width:320px){
+
+}
+/* iphone6 */
+@media (min-width:375px){
+	
+}
+/* iphone6-plus */
+@media (min-width:414px){
+	
+}
+/* iphone5 横屏*/
+@media (min-width:568px){
+
+}
+/* iphone6 横屏*/
+@media (min-width:667px){
+	
+}
+/* iphone6-plus 横屏*/
+@media (min-width:736px){
+	
+}
+/* 小屏幕（平板，大于等于768px） */
+@media (min-width: 768px) {
+	i.form-control-feedback{
+		cursor: pointer !important;
+		
+	}
+	.vinput{
+		
+		float: left;
+		margin-right: 5px;
+	}
+	input + label.error{
+		margin-top: 0;
+	}
+	label.control-label{
+		padding-right: 0;
+	}
+	.form-horizontal .control-label{
+		text-align: left;
+	}
+	.form-horizontal .has-feedback .form-control-feedback {
+		top:0;
+	    
+	}
+	.input-parent{
+		padding-left:0;
+	}
+	input[type=submit]{
+		
+	}
+}
+
+/* 中等屏幕（桌面显示器，大于等于992px） */
+@media (min-width: 992px) {
+
+
+/* 大屏幕（大桌面显示器，大于等于1200px） */
+@media (min-width: 1200px) {
+	.input-parent{
+		padding-left:15px;
+	}
+}

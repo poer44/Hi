@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Login - Hi~Video</title>
+		<link rel="stylesheet" type="text/css" href="customer/css/userLogin.css"/>
+		<script src="customer/js/jquery.js"></script>
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="customer/js/tip.js" ></script>
+	<script type="text/javascript" src="customer/js/toastr.js" ></script>
+	<link rel="stylesheet" href="customer/css/toastr.css" />
+	</head>
+	<body>
+		<div style="position:fixed;top:5px;left:10px;"><a href="index.html"><img src="customer/images/Hi.png" width="80px" height="80px"/></a></div>
+		
+		<div class="main-agileinfo" id="pwd-login">
+		<h1>密码登录验证</h1><p class="change" id="pwd-change"><a href="#">点击切换</a></p>
+		<form action="userLogin1.htm" id="pwdlogin" method="post" onsubmit="return checklogin1();">
+			<input type="hidden"  name="requesturl" id="requesturl"></input>
+			<input type="text" name="tel1" id="tel1" class="name" placeholder="手机号" required="">
+			<span id="checketel1" class="check"></span>
+			<input type="password" name="password" id="pwd" class="password" placeholder="密码" required="">
+			<span id="checkpwd" class="check"></span>
+			<input type="submit" id="login1" value="登陆">
+			<input type="button" id="register1" value="注册">
+		</form>
+		</div>
+		<div class="main-agileinfo" id="tel-login" style="display: none;">
+		<h1>手机登录验证</h1><p class="change" id="tel-change"><a href="#">点击切换</a></p>
+		<form action="userLogin2.htm" method="post" >
+			<!-- <input type="hidden"  name="requesturl" id="requesturl"></input> -->
+			<input type="text" name="tel2" id="tel2" class="name" placeholder="手机号" required="">
+			<!-- <span id="checketel2" class="check"></span> -->
+			<input type="button" id="getyzm" value="获取验证码" onclick="sendCode(this)">
+			<input type="hidden"  id="showyzm" name="showyzm" value="123456:bbbbbb">
+			<input type="text" name="yzm" id="yzm" class="name" placeholder="验证码" required="" />
+			<span class="check"></span>
+			<input type="submit" value="登陆">
+			<input type="button" id="register2" value="注册">
+		</form>
+		</div>
+	</body>
+	<script src="customer/js/jquery.js"></script>
+	<script src="customer/js/userlogin.js"></script>
+	<script src="static/js/JquerySession.js"></script>
+</html>

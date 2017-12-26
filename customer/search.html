@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HI~Search</title>
+
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="font/iconfont.css">
+<link rel="stylesheet" type="text/css" href="css/banner.css">
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
+
+<link rel="stylesheet" href="dist/autocomplete.css">
+<link rel="stylesheet" href="style.css">
+
+<script type="text/javascript" src="dist/jquery.js"></script>
+<script type="text/javascript" src="dist/autocomplete.js"></script>
+<script type="text/javascript" src="dist/search.js"></script>
+<script type="text/javascript">
+	
+</script>
+</head>
+<body>
+
+	<div id="header">
+
+		<!-- 最顶部 -->
+		<div class="header-top"
+			style="background-color: #fff; border-bottom: 2px solid gainsboro;">
+			<!--顶部栏-->
+			<div class="auto-width">
+				<h1 class="logo fl">
+					<a href="../index.html"><img src="images/logo1.png"
+						alt="图标：hihi"></a>
+				</h1>
+				<!--logo图标-->
+				<ul class="header-guide fr">
+					<li class="guide-item download">
+						<!--客户端二维码--> <a> <!--标签效果显示二维码--> <i
+							class="iconfont icon-app"></i> <span>扫码下载客户端</span>
+					</a>
+						<div class="guide-hover">
+							<!--客户端二维码-->
+							<img src="images/app-download.png" alt="客户端二维码">
+						</div>
+					</li>
+					<li class="guide-item upload showgh" id="uploadV" style="display:none;">
+						<!--上传视频--> <a  target='_blank' href="information.jsp"> <i class="iconfont icon-upload"></i>
+					</a>
+						<div class="gh" style="display: none; padding-top: 10px;">
+							<ul>
+								<li><a target='_blank' style="color: red;">上传视频</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="guide-item guide-user user-logined"><a
+						href="../user_login.html" id="userinfo">登录/注册</a>
+						<div class="guide-hover" id="userinfobottom"
+							style="background-color: #FFFFFF; position: absolute; top: 42px; width: 100px; border-radius: 1px;">
+							<p>
+								<a target='_blank' href="information.html"
+									style="margin-top: 15px; margin-bottom: 10px; margin-left: 5px;">个人信息</a>
+								<a href="../userlogout.htm"
+									style="margin-top: 15px; margin-bottom: 10px; margin-left: 5px;">退出</a>
+							</p>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+
+<input type="hidden" id="hid" value="all">
+		<!--搜索框 autocomplete-button-->
+		<div style="padding-top: 60px;">
+			<div id="demo">
+				<div class="wrapper" style="padding-top: 30px;">
+					<div id="search-form"></div>
+				</div>
+			</div>
+		</div>
+
+		<!--导航栏-->
+		<div class="header-nav1 ones"
+			style="background-color: #fff; padding-top: 0px;">
+			<div class="nav-wrap auto-width clearfix">
+				<a href="javascript:void(0)" onclick="searchMorA('1',this)" class="nav-item nav-cur" id="m1">视频</a> 
+				<a href="javascript:void(0)" onclick="searchMorA('2',this)" class="nav-item nav-item_hover" id="a1">Author</a>
+			</div>
+		</div>
+		<!--二级导航-->
+		<div class="header-nav1 two"
+			style="width: 40%; background-color: #fff; margin-left: 30%; margin-top: 10px; border-top: 1px solid gainsboro; border-right: 1px solid gainsboro;border-left: 1px solid gainsboro;">
+			<div class="nav-wrap auto-width clearfix"
+				style="width: 800px; margin-left: 10px;">
+				<a class="nav-item nav-item_hover" style="margin-right: 0;">分类：</a>
+				<a href="javascript:void(0)" onclick="searchByType('0',this)" class="nav-item nav-cur" id="sAll">全部</a> <a href="javascript:void(0)" onclick="searchByType('1',this)"
+					class="nav-item nav-item_hover" id="1">娱乐</a> <a href="javascript:void(0)" onclick="searchByType('2',this)"
+					class="nav-item nav-item_hover" id="2">游戏</a> <a href="javascript:void(0)" onclick="searchByType('3',this)"
+					class="nav-item nav-item_hover" id="3">动画</a> <a href="javascript:void(0)" onclick="searchByType('4',this)"
+					class="nav-item nav-item_hover" id="4">音乐</a> <a href="javascript:void(0)" onclick="searchByType('5',this)"
+					class="nav-item nav-item_hover" id="5">舞蹈</a>
+			</div>
+		</div>
+
+	</div>
+
+
+	<!--主体-->
+	<div id="main" style="margin-top: 10px; background-color: #fff;">
+
+		<h6 style="margin-left: 180px; color: darkgray;" id="total">共100条记录</h6>
+		<table style="margin-left: 100px" cellspacing="30" id="sViews">
+			
+		</table>
+
+		<!--分页码-->
+		<div class="page1">
+			<ul id="pg">
+			</ul>
+			<a></a>
+		</div>
+	</div>
+
+
+
+
+	<!--底部-->
+	<div id="footer">
+		<div class="container auto-width">
+			<div class="footer-top clearfix">
+				<div class="footer-nav fl">
+				
+					 <div class="item">
+							<h5>合作</h5>
+							<p>
+								<a href="http://www.acfun.cn/info/#page=about" target="_blank">关于我们</a><a
+									href="http://www.acfun.cn/info/#page=contact" target="_blank"
+									class="mr0">联系我们</a><br>
+								<a href="http://www.acfun.cn/info/#page=joinus" target="_blank">AC招聘</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>官方</h5>
+							<p>
+								<a href="http://weibo.com/danmushipin/" target="_blank">新浪微博</a><a
+									href="http://tb.am/cbaz8/" target="_blank" class="mr0">官方网店</a><br>
+								<a href="/gamecenter" target="_blank" data-id="1"
+									class="gamePortal">游戏中心</a><a class="i-o-ewm"><span
+									class="i-o-code"><img
+										src="http://cdn.aixifan.com/acfun-pc/2.2.5/img/erweima.jpg"></span>
+									微信公众号</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>下载</h5>
+							<p>
+								<a href="http://www.acfun.cn/app/" target="_blank" class="mr0">移动客户端</a><span
+									class="new">new</span><br>
+								<a href="http://www.acfun.cn/emot/" target="_blank" class="mr0">AC娘表情包</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>友情链接</h5>
+							<p>
+								<a href="http://lg.dianbo.me/index.php" target="_blank">AC大逃杀</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>反馈</h5>
+							<p>
+								<a href="http://www.acfun.cn/feedback/" target="_blank">意见反馈</a><a
+									href="http://www.acfun.cn/report/" target="_blank">举报</a><a
+									href="http://www.acfun.cn/about/help" target="_blank"
+									class="mr0">帮助中心</a><br>
+								<a href="http://www.acfun.cn/info/#page=disclaimer"
+									target="_blank">免责声明</a><a
+									href="http://www.acfun.cn/info/#page=agreement" target="_blank">用户协议</a><a
+									href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzgwMDA1NTU2NF8zMDU4NzZfODAwMDU1NTY0XzJf"
+									target="_blank">联系客服</a>
+							</p>
+						</div>
+					</div> 
+				<div class="footer-img fr">
+					<img src="images/footer-logo.gif" alt="#">
+				</div>
+			</div>
+			<div class="footer-middle clearfix">
+				<div class="item">
+					<i class="icon icon-1"></i>中国互联网举报中心<br>
+					<br> <i class="icon icon-2"></i><span>网络文化经营单位</span><br>
+				</div>
+				<div class="item">
+					<span>京ICP备15067359号</span><br> <a
+						href="http://www.bjjubao.org/" target="_blank">北京互联网举报中心</a><br>
+					<a href="http://www.bjwhzf.gov.cn/accuse.do" target="_blank">北京12318文化市场举报热线</a>
+				</div>
+				<div class="item">
+					<a href="//www.miitbeian.gov.cn/" target="_blank">闽ICP证777777号</a><br>
+					<a href="/about/qualification" target="_blank">闽网文[2017]0948-099号</a>
+				</div>
+				<div class="item">
+					<span>节目制作经营许可证（闽）字第05178号</span><br> <a
+						href="http://www.cyberpolice.cn" target="_blank">公安部网络违法犯罪举报网站</a>
+				</div>
+				<div class="item-link5 hidden"></div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<img src="images/favicon1.png" alt="#">
+			<p>本站不提供任何视听上传服务，所有内容均来自视频分享站点所提供的公开引用资源。Copyright © 2017 Hi.
+				保留所有权利</p>
+		</div>
+	</div>
+
+	<script src="js/script.js"></script>
+	<script src="../static/js/JquerySession.js"></script>
+	<script src="../static/js/usersearch.js"></script>
+	<script src="js/sliderbox.js"></script>
+	<script src="js/tab.js"></script>
+
+</body>
+</html>

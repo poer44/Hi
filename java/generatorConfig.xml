@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+
+  <!-- 引入配置文件 -->
+  <properties resource="init.properties"/>
+  <context id="Hi" >
+  	<!-- 注释 -->
+	<commentGenerator >
+		<property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+		<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
+	</commentGenerator>
+  	<!-- jdbc连接 -->
+	<jdbcConnection driverClass="${jdbc_driver}" 
+		connectionURL="${jdbc_url}" userId="${jdbc_user}"
+		password="${jdbc_password}" />
+	
+	<!-- 生成实体类地址 -->	
+	<javaModelGenerator targetPackage="entity" targetProject="${project}" >
+		<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+		<property name="trimStrings" value="true"/>
+	</javaModelGenerator>
+  
+  	<!-- 生成mapxml文件 -->
+	<sqlMapGenerator targetPackage="mapper" targetProject="${project}" ></sqlMapGenerator>
+	
+	<!-- 生成mapxml对应client，也就是接口dao -->	
+	<javaClientGenerator targetPackage="dao" targetProject="${project}" type="XMLMAPPER" >
+	<!-- type有三个值：ANNOTATEDMAPPER、MIXEDMAPPER、XMLMAPPER -->
+	</javaClientGenerator>
+	
+	<!-- 配置表信息 -->	
+	<table schema="${jdbc_user}" tableName="tb_admin" domainObjectName="Admin">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="ADMINID" javaType="java.lang.String"/>
+		<columnOverride column="PASSWORD" javaType="java.lang.String" />
+	</table>
+	<table schema="${jdbc_user}" tableName="tb_barrage" domainObjectName="Barrage">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="BARRAGEID" javaType="java.lang.Integer"/>
+		<columnOverride column="VIDEOID" javaType="java.lang.Integer" />
+		<columnOverride column="USERID" javaType="java.lang.String" />
+		<columnOverride column="CONTENT" javaType="java.lang.String" />
+		<columnOverride column="VIDEOTIME" javaType="java.lang.String"/>
+		<columnOverride column="BARRAGETIME" javaType="java.lang.String"/>
+	</table>
+	<table schema="${jdbc_user}" tableName="tb_submission" domainObjectName="Submission">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="SUBMISSIONID" javaType="java.lang.Integer"/>
+		<columnOverride column="USERID" javaType="java.lang.String" />
+		<columnOverride column="VIDEONAME" javaType="java.lang.String" />
+		<columnOverride column="IMGURL" javaType="java.lang.String" />
+		<columnOverride column="FILEURL" javaType="java.lang.String"/>
+		<columnOverride column="FILESIZE" javaType="java.lang.String"/>
+		<columnOverride column="FORMAT" javaType="java.lang.String"/>
+		<columnOverride column="SUBMISSIONTIME" javaType="java.lang.String"/>
+		<columnOverride column="STATE" javaType="java.lang.String"/>
+		<columnOverride column="VIDEOLENGTH" javaType="java.lang.String"/>
+	</table>
+	<table schema="${jdbc_user}" tableName="tb_user" domainObjectName="User">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="USERID" javaType="java.lang.String"/>
+		<columnOverride column="PASSWORD" javaType="java.lang.String" />
+		<columnOverride column="USERNAME" javaType="java.lang.String" />
+		<columnOverride column="IMGURL" javaType="java.lang.String" />
+		<columnOverride column="SEX" javaType="java.lang.String"/>
+		<columnOverride column="BIRTHDAY" javaType="java.lang.String"/>
+		<columnOverride column="ADDRESS" javaType="java.lang.String"/>
+		<columnOverride column="EMOTION" javaType="java.lang.String"/>
+		<columnOverride column="EMAIL" javaType="java.lang.String"/>
+		<columnOverride column="SIGN" javaType="java.lang.String"/>
+		<columnOverride column="REGISTERTIME" javaType="java.lang.String"/>
+	</table>
+	<table schema="${jdbc_user}" tableName="tb_usercollection" domainObjectName="Usercollection">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="USERID" javaType="java.lang.String"/>
+		<columnOverride column="COLLECTION" javaType="java.lang.String" />
+	</table>
+	<table schema="${jdbc_user}" tableName="tb_video" domainObjectName="Video">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="VIDEOID" javaType="java.lang.Integer"/>
+		<columnOverride column="VIDEONAME" javaType="java.lang.String" />
+		<columnOverride column="AUTHOR" javaType="java.lang.String" />
+		<columnOverride column="IMGURL" javaType="java.lang.String" />
+		<columnOverride column="FILEURL" javaType="java.lang.String"/>
+		<columnOverride column="FILESIZE" javaType="java.lang.String"/>
+		<columnOverride column="FORMAT" javaType="java.lang.String"/>
+		<columnOverride column="PLAY" javaType="java.lang.Integer"/>
+		<columnOverride column="COLLECTION" javaType="java.lang.Integer"/>
+		<columnOverride column="UPTIME" javaType="java.lang.String"/>
+		<columnOverride column="TYPEID" javaType="java.lang.Integer"/>
+		<columnOverride column="VIDEOLENGTH" javaType="java.lang.String"/>
+	</table>
+	<table schema="${jdbc_user}" tableName="tb_videocomment" domainObjectName="Videocomment">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="COMMENTID" javaType="java.lang.Integer"/>
+		<columnOverride column="VIDEOID" javaType="java.lang.Integer" />
+		<columnOverride column="USERID" javaType="java.lang.String" />
+		<columnOverride column="CONTENT" javaType="java.lang.String" />
+		<columnOverride column="COMMENTTIME" javaType="java.lang.String" />
+	</table>
+	<table schema="${jdbc_user}" tableName="tb_videotype" domainObjectName="Videotype">
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+		<columnOverride column="TYPEID" javaType="java.lang.Integer"/>
+		<columnOverride column="TYPENAME" javaType="java.lang.String" />
+	</table>
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+.jedatebox .jedaul li:hover {
+    background-color: #337ab7;
+    color:#fff;
+    cursor: pointer;
+}
+.jedatebox .jedaul li.disabled {
+    cursor: not-allowed;
+    background: none;
+}
+.jedatebot .jedatebtn span {
+    cursor: pointer;
+}
+.jedateym .prev:before {
+    cursor: pointer;
+}
+.jedateym .next:before {
+    cursor: pointer;
+}
+.jedateym .pndrop {
+    cursor:pointer;
+}
+.jedatesety .ymdropul li:hover {
+    background-color: #337ab7;
+    color:#fff;
+}
+.jedatetopym p span.jedateymchle {
+    cursor: pointer;
+}
+.jedatetopym p span.jedateymchri {
+   	cursor: pointer;
+}
+.jedatetopym p span.jedateymchok {
+    cursor: pointer;
+}
+.jedatesetm .ymdropul li:hover {
+    background-color: #337ab7;
+    color:#fff;
+}
+
+/* iphone5 */
+@media (min-width:320px){
+
+}
+/* iphone6 */
+@media (min-width:375px){
+	
+}
+/* iphone6-plus */
+@media (min-width:414px){
+	
+}
+/* iphone5 横屏*/
+@media (min-width:568px){
+
+}
+/* iphone6 横屏*/
+@media (min-width:667px){
+	
+}
+/* iphone6-plus 横屏*/
+@media (min-width:736px){
+	
+}
+/* 小屏幕（平板，大于等于768px） */
+@media (min-width: 768px) {
+	
+}
+
+/* 中等屏幕（桌面显示器，大于等于992px） */
+@media (min-width: 992px) {
+
+
+/* 大屏幕（大桌面显示器，大于等于1200px） */
+@media (min-width: 1200px) {
+
+}

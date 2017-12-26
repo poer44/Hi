@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>stuManager.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript" src="js/loader.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//初始化table
+		var tbObj = new TableInit();
+		tbObj.Init();
+
+		//初始化按钮
+		var btnObj = new ButtonInit();
+		btnObj.Init();
+
+	});
+	//传统方法定义js类
+	var TableInit = function() {
+		//初始化Table(用this定义的是公有方法或属性)
+		this.Init = function() {
+			$("#tb_stu").bootstrapTable({
+				url : "restUserJson.htm", //请求后台的URL（*）
+				method : "get", //请求方式（*）
+				//如果使用post，contentType默认用json发送数据，java后台无法通过getParameter获取参数
+				//contentType : "application/x-www-form-urlencoded",
+				toolbar : "#toolbar", //工具按钮用哪个容器
+				striped : false, //是否显示行间隔色
+				cache : false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+				sortable : true, //是否启用排序
+				sortName : "registertime", //排序的字段
+				sortOrder : "desc", //排序方式
+				queryParamsType : "limit", //采用restful风格发送数据
+				queryParams : queryParams,//传递参数（*）
+				//设置为其他，可以获取pageNumber，pageSize，searchText，sortName，sortOrder  
+				//设置为limit可以获取limit, offset, search, sort, order  
+				pagination : true, //是否显示分页（*）
+				sidePagination : "server", //分页方式：client客户端分页，server服务端分页（*）
+				pageNumber : 1, //初始化加载第一页，默认第一页
+				pageSize : 5, //每页的记录行数（*）
+				pageList : [ 5, 10, 25, 50, 100 ], //可供选择的每页的行数（*）
+				silentSort : true, //分页时自动记住排序
+				//search : true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+				//strictSearch : false,   //false是模糊搜索，true是精确搜索
+				showColumns : true, //是否显示所有的列
+				showRefresh : true, //是否显示刷新按钮
+				minimumCountColumns : 2, //最少允许的列数
+				clickToSelect : true, //是否启用点击选中行
+				//height : 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+				uniqueId : "userid", //每一行的唯一标识，一般为主键列
+				showToggle : true, //是否显示详细视图和列表视图的切换按钮
+				cardView : false, //是否显示详细视图
+				//detailView : false, //是否显示父子表
+				columns : [ { //配置列属性
+					checkbox : true
+				}, {
+					field : "imgurl",
+					title : "头像",
+					align : "center",
+					valign : "middle",
+					visible : true, //设置不显示字段
+					sortable : false,
+					formatter: function(value,row,index){
+                        return "<img src=../"+value+" width=40px height=40px>";
+                    }
+				}, {
+					field : "userid",
+					title : "用户名",
+					align : "center",
+					valign : "middle",
+					sortable : false
+				// 开启排序功能
+				}, {
+					field : "username",
+					title : "昵称",
+					align : "center",
+					valign : "middle",
+					sortable : false
+				// 开启排序功能
+				}, {
+					field : "registertime",
+					title : "注册时间",
+					align : "center",
+					valign : "middle",
+					sortable : true
+				// 开启排序功能
+				}, {
+					field : "email",
+					title : "邮箱",
+					align : "center",
+					valign : "middle",
+					sortable : false
+				// 开启排序功能
+				}, {
+					field : "sign",
+					title : "个性签名",
+					align : "center",
+					valign : "middle",
+					sortable : false
+				// 开启排序功能
+				}, {
+					field : "address",
+					title : "地址",
+					align : "center",
+					valign : "middle",
+					sortable : false
+				// 开启排序功能
+				} ],
+				responseHandler : function(res) {
+					//console.log(res);
+					return {
+						"total" : res.datas.total,//总记录数
+						"rows" : res.datas.list
+					//数据
+					};
+				}
+			});
+		};
+
+		//得到查询的参数(用var定义的是私有方法或属性)
+		var queryParams = function(params) {
+			console.log(params);
+			var paramdata = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+				pageSize : params.limit, //页面大小
+				pageNum : params.offset, //页码
+				//search: params.search,  //搜索框
+				sort : params.sort, //排序字段
+				order : params.order, //排序方式
+				userid : $("#userid").val(),
+				username : $("#username").val()
+			};
+			return paramdata;
+		};
+
+	};
+
+	var ButtonInit = function() {
+
+		this.Init = function() {
+
+			$("#btn_query").click(function() {
+				window.parent.removeall();
+				$("#tb_stu").bootstrapTable("refresh");
+			});
+
+
+			$("#btn_delete").click(function() {
+				window.parent.removeall();
+				var selection = $("#tb_stu").bootstrapTable("getSelections");
+				if (selection.length > 1) {
+					window.parent.danhang();
+					return;
+				}
+				if (selection.length <= 0) {
+					window.parent.youxiao();
+					return;
+				}
+				Tip.confirm({
+					title : "单行删除",
+					message : "您确认删除选择的数据吗？",
+					btnok : "残忍删除",
+					btncl : "放过一马"
+				}).on(function(res) {
+					if (!res)
+						return;
+					var userid = selection[0].userid;
+					$.del("restUserJson.htm", userid, function(res) {
+						commonResult(res);
+					});
+				});
+			});
+
+		}
+
+		var commonResult = function(res) {
+			if (res.state == 0) {
+				window.parent.delu();
+			} else {
+				window.parent.delufail();
+			}
+			$("#tb_stu").bootstrapTable("refresh");
+		}
+	}
+</script>
+</head>
+
+<body style="margin:20px 20px 20px 20px;">
+	<div class="panel-body" style="padding-bottom: 0px">
+		<div class="panel panel-default">
+			<div class="panel-heading">查询条件</div>
+			<div class="panel-body">
+				<form id="formSearch" class="form-horizontal">
+					<div class="form-group" style="margin-top: 15px">
+						<label class="control-label col-sm-1" for="userid">用户名</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="userid">
+						</div>
+						<label class="control-label col-sm-1" for="username">用户昵称</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="username">
+						</div>
+						<div class="col-sm-4" style="text-align: left;">
+							<button type="button" style="margin-left: 50px" id="btn_query"
+								class="btn btn-primary">
+								<span class="glyphicon glyphicon-search">模糊查询</span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="toolbar" class="btn-group">
+			<button id="btn_delete" type="button" class="btn btn-danger">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				单行删除
+			</button>
+
+		</div>
+		<table id="tb_stu"></table>
+
+	</div>
+
+</body>
+</html>

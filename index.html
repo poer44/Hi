@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Hi~</title>
+<link rel="stylesheet" href="customer/css/reset.css">
+<link rel="stylesheet" href="customer/css/index.css">
+<link rel="stylesheet" href="customer/font/iconfont.css">
+<link rel="stylesheet" type="text/css" href="customer/css/banner.css">
+<link rel="shortcut icon" href="customer/images/favicon.ico"
+	type="image/x-icon" />
+<script src="customer/dist/jquery.js" type="text/javascript"
+	charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".showgh").hover(function() {
+			$(".gh").css("display", "block");
+		});
+		$(".showgh").mouseleave(function() {
+			$(".gh").css("display", "none");
+		});
+	});
+</script>
+</head>
+<body style=" height: 2000px; ">
+
+	<!---------- 顶部页面 （顶部栏+导航栏）---------->
+	<div id="header">
+
+		<!-- 最顶部 -->
+		<div class="header-top" style="background-color: #fff;">
+			<!--顶部栏-->
+			<div class="auto-width">
+				<h1 class="logo fl">
+					<a href="index.html"><img src="customer/images/logo1.png" alt="图标：hihi"></a>
+				</h1>
+				<!--logo图标-->
+				<div class="search-box fl">
+					<!--搜索栏-->
+						<!--搜索表单-->
+						<input type="text" style="color: black;" class="fl search-text" id="query" autocomplete="off" placeholder="Search..." style="">
+						<!--搜索框-->
+						<button class="fl search-btn" id="encodeSearch">
+							<!--搜索按钮-->
+							<i class="iconfont icon-search"></i>
+						</button>
+					<div class="search-feedback">
+						<!--搜索时显示的下拉框（表示最近最热的搜索）-->
+						<span class="search-hot">今日热搜</span>
+						<div class="search-menu" id="searchContent">
+						</div>
+					</div>
+				</div>
+				<ul class="header-guide fr">
+					<li class="guide-item download">
+						<!--客户端二维码--> <a> <!--标签效果显示二维码--> <i
+							class="iconfont icon-app"></i> <span>扫码下载客户端</span>
+					</a>
+						<div class="guide-hover">
+							<!--客户端二维码-->
+							<img src="customer/images/app-download.png" alt="客户端二维码">
+						</div>
+					</li>
+					<li class="guide-item upload showgh" id="uploadV" style="display:none;">
+						<!--上传视频-->
+				    <a target='_blank'> <i class="iconfont icon-upload"></i>
+					</a>
+						<div class="gh"
+							style="display:none;background-color: #FFFFFF;position: absolute;top: 42px;width: 80px;border-radius: 1px;">
+							<ul>
+								<li><a target='_blank' href="customer/information.jsp"
+									style="margin-top: 15px;margin-bottom: 10px;margin-left: 5px;">上传视频</a></li>
+							</ul>
+						</div>
+					</li>
+					<!--登录注册跳转-->
+					<li class="guide-item guide-user user-logined"><a
+						href="user_login.html" id="userinfo">登录/注册</a>
+						<div class="guide-hover" id="userinfobottom"
+							style="background-color: #FFFFFF;position: absolute;top: 42px;width: 100px;border-radius: 1px;">
+							<p>
+								<a target='_blank' href="customer/information.jsp"
+									style="margin-top: 15px;margin-bottom: 10px;margin-left: 5px;">个人信息</a>
+								<a href="userlogout.htm"
+									style="margin-top: 15px;margin-bottom: 10px;margin-left: 5px;">退出</a>
+							</p>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 焦点图 -->
+		<div class="header-banner" id="0">
+			<a href="#" class="bg"></a> <span class="text">到底能不能上车啊！！！</span> <a
+				href="#" class="link"></a>
+		</div>
+		<!-- 导航 -->
+		<div class="header-nav" style="background-color:#fff ;">
+			<!--导航栏-->
+			<div class="nav-wrap auto-width clearfix">
+				<a href="#0" class="nav-item nav-cur mm" id="nav-0">首页</a> <a
+					href="#1" class="nav-item nav-item_hover mm" id="nav-1">娱乐</a> <a
+					href="#2" class="nav-item nav-item_hover mm" id="nav-2">游戏</a> <a
+					href="#3" class="nav-item nav-item_hover mm" id="nav-3">动画</a> <a
+					href="#4" class="nav-item nav-item_hover mm" id="nav-4">音乐</a> <a
+					href="#5" class="nav-item nav-item_hover mm" id="nav-5">舞蹈</a>
+				 <a class="nav-rank" style="margin-right:60px;"> <i class="iconfont icon-rank"></i>
+					全站排行榜
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!---------- 主体内容 ---------->
+	<div id="main">
+		<div class="auto-width clearfix">
+
+			<!-- 幻灯片部分（轮播图+点播量前十的视频） -->
+			<section class="area clearfix area-slider">
+				<div id="sliderBox" class="slider-box fl">
+					<!--轮播图-->
+					<div class="banner" id="banner2" style="margin: 0px auto ;">
+						<div class="banner-view"></div>
+						<div class="banner-btn"></div>
+						<div class="banner-number"></div>
+						<div class="banner-progres"></div>
+					</div>
+					<script type="text/javascript" src="customer/js/banner.js"></script>
+					<div id="122" style="position: absolute;text-align:center;top: 0px;left: 26px;background-color:rgba(0,0,0,0.8);width: 400px;height: 30px; opacity: 0.3;">
+						<h4 style="font-size: 20px;color:white;margin-top: 5px;opacity: 1;" id="videotitle">Hot Videos</h4>
+					</div>
+				</div>
+				<ul class="slider-menu fl" id="slidermenu">
+				</ul>
+			</section>
+
+			<!-- 大神推荐 -->
+			<section class="area clearfix area-recommend" id="1">
+				<header class="area-header">
+					<h2 class="title">
+						<img src="customer/images/area-title__1.gif" alt="#"> <b>大神推荐</b>
+					</h2>
+				</header>
+				<div class="area-cont">
+					<div class="area-main fl">
+						<!--推荐的5个列表-->
+						<ul class="area-menu fl clearfix" id="recommend">
+						</ul>
+					</div>
+					<div class="area-side fr">
+						<a href="#"><img src="customer/images/cont/area-menu__6.jpg"
+							alt="各榜单" width="280px"></a>
+					</div>
+				</div>
+			</section>
+
+			<!-- 娱乐 -->
+			<section class="area clearfix area-yule">
+				<div class="area-cont">
+					<div class="area-main fl">
+						<!--左部-->
+						<header class="area-header">
+							<!--顶部导航-->
+							<h2 class="title">
+								<img src="customer/images/area-title__4.gif" alt="#"> <b>娱乐</b>
+							</h2>
+							<a  href="javascript:void(0)" class="change" onclick="ranType('1')"> <i class="iconfont icon-rank"></i>
+								换一批
+							</a> <a target="_blank" href="customer/search.html?typeid=1" class="more">More ></a>
+						</header>
+						<div class="area-big" id="big1">
+						</div>
+						<ul class="area-menu clearfix" id="big11">
+						</ul>
+					</div>
+					<div class="area-side fr" JS-tab="true">
+						<!--右部-->
+						<header class="area-header">
+							<h2 class="title">
+								<b>娱乐排行榜</b>
+							</h2>
+						</header>
+						<div class="side-rank">
+							<!--排行榜单-->
+							<ul class="tab-cont tab-cont__active" id="top1">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 游戏 -->
+			<section class="area clearfix area-game">
+				<div class="area-cont">
+					<div class="area-main fl">
+						<!--左部-->
+						<header class="area-header">
+							<h2 class="title">
+								<img src="customer/images/area-title__6.gif" alt="#"> <b>游戏</b>
+							</h2>
+							<a href="javascript:void(0)" class="change" onclick="ranType('2')"> <i class="iconfont icon-rank"></i>
+								换一批
+							</a> <a target="_blank" href="customer/search.html?typeid=2" class="more">More ></a>
+						</header>
+						<div class="area-big" id="big2">
+						</div>
+						<ul class="area-menu clearfix" id="big12">
+						</ul>
+					</div>
+					<div class="area-side fr" JS-tab="true">
+						<!--右部-->
+						<header class="area-header">
+							<h2 class="title">
+								<b>游戏排行榜</b>
+							</h2>
+						</header>
+						<div class="side-rank">
+							<ul class="tab-cont tab-cont__active" id="top2">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 动画 -->
+			<section class="area clearfix area-game">
+				<div class="area-cont">
+					<div class="area-main fl">
+						<!--左部-->
+						<header class="area-header">
+							<h2 class="title">
+								<img src="customer/images/area-title__7.gif" alt="#"> <b>动画</b>
+							</h2>
+							<a href="javascript:void(0)" class="change" onclick="ranType('3')"> <i class="iconfont icon-rank"></i>
+								换一批
+							</a> <a target="_blank" href="customer/search.html?typeid=3" class="more">More ></a>
+						</header>
+						<div class="area-big" id="big3">
+						</div>
+						<ul class="area-menu clearfix"id="big13">
+						</ul>
+					</div>
+					<div class="area-side fr" JS-tab="true">
+						<!--右部-->
+						<header class="area-header">
+							<h2 class="title">
+								<b>动画排行榜</b>
+							</h2>
+						</header>
+						<div class="side-rank">
+							<ul class="tab-cont tab-cont__active" id="top3">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 音乐 -->
+			<section class="area clearfix area-game">
+				<div class="area-cont">
+					<div class="area-main fl">
+						<!--左部-->
+						<header class="area-header">
+							<h2 class="title">
+								<img src="customer/images/area-title__8.gif" alt="#"> <b>音乐</b>
+							</h2>
+							<a href="javascript:void(0)" class="change"onclick="ranType('4')"> <i class="iconfont icon-rank"></i>
+								换一批
+							</a> <a target="_blank" href="customer/search.html?typeid=4" class="more">More ></a>
+						</header>
+						<ul class="area-menu clearfix" id="big14">
+						</ul>
+					</div>
+					<div class="area-side fr" JS-tab="true">
+						<!--右部-->
+						<header class="area-header">
+							<h2 class="title">
+								<b>音乐排行榜</b>
+							</h2>
+						</header>
+						<div class="side-rank">
+							<ul class="tab-cont tab-cont__active"id="top4">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 舞蹈 -->
+			<section class="area clearfix area-game">
+				<div class="area-cont">
+					<div class="area-main fl">
+						<!--左部-->
+						<header class="area-header">
+							<h2 class="title">
+								<img src="customer/images/area-title__9.gif" alt="#"> <b>舞蹈</b>
+							</h2>
+							<a href="javascript:void(0)" class="change" onclick="ranType('5')"> <i class="iconfont icon-rank"></i>
+								换一批
+							</a> <a target="_blank" href="customer/search.html?typeid=5" class="more">More ></a>
+						</header>
+						<ul class="area-menu clearfix" id="big15">
+						</ul>
+					</div>
+					<div class="area-side fr" JS-tab="true">
+						<!--右部-->
+						<header class="area-header">
+							<h2 class="title">
+								<b>舞蹈排行榜</b>
+							</h2>
+						</header>
+						<div class="side-rank">
+							<ul class="tab-cont tab-cont__active" id="top5">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 广告 -->
+			<div class="area clearfix area-ad">
+				<a href="#" class="fl"><img src="customer/images/cont/ad2.png"
+					alt="#"></a> <a href="#" class="fr"><img
+					src="customer/images/cont/ad3.png" alt="#"></a>
+			</div>
+
+		</div>
+	</div>
+
+	<!---------- 底部内容 ---------->
+	<div id="footer">
+		<div class="container auto-width">
+			<div class="footer-top clearfix">
+				<div class="footer-nav fl">
+				
+					 <div class="item">
+							<h5>合作</h5>
+							<p>
+								<a href="http://www.acfun.cn/info/#page=about" target="_blank">关于我们</a><a
+									href="http://www.acfun.cn/info/#page=contact" target="_blank"
+									class="mr0">联系我们</a><br>
+								<a href="http://www.acfun.cn/info/#page=joinus" target="_blank">AC招聘</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>官方</h5>
+							<p>
+								<a href="http://weibo.com/danmushipin/" target="_blank">新浪微博</a><a
+									href="http://tb.am/cbaz8/" target="_blank" class="mr0">官方网店</a><br>
+								<a href="/gamecenter" target="_blank" data-id="1"
+									class="gamePortal">游戏中心</a><a class="i-o-ewm"><span
+									class="i-o-code"><img
+										src="http://cdn.aixifan.com/acfun-pc/2.2.5/img/erweima.jpg"></span>
+									微信公众号</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>下载</h5>
+							<p>
+								<a href="http://www.acfun.cn/app/" target="_blank" class="mr0">移动客户端</a><span
+									class="new">new</span><br>
+								<a href="http://www.acfun.cn/emot/" target="_blank" class="mr0">AC娘表情包</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>友情链接</h5>
+							<p>
+								<a href="http://lg.dianbo.me/index.php" target="_blank">AC大逃杀</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>反馈</h5>
+							<p>
+								<a href="http://www.acfun.cn/feedback/" target="_blank">意见反馈</a><a
+									href="http://www.acfun.cn/report/" target="_blank">举报</a><a
+									href="http://www.acfun.cn/about/help" target="_blank"
+									class="mr0">帮助中心</a><br>
+								<a href="http://www.acfun.cn/info/#page=disclaimer"
+									target="_blank">免责声明</a><a
+									href="http://www.acfun.cn/info/#page=agreement" target="_blank">用户协议</a><a
+									href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzgwMDA1NTU2NF8zMDU4NzZfODAwMDU1NTY0XzJf"
+									target="_blank">联系客服</a>
+							</p>
+						</div>
+					</div> 
+				<div class="footer-img fr">
+					<img src="customer/images/footer-logo.gif" alt="#">
+				</div>
+			</div>
+			<div class="footer-middle clearfix">
+				<div class="item">
+					<i class="icon icon-1"></i>中国互联网举报中心<br>
+					<br> <i class="icon icon-2"></i><span>网络文化经营单位</span><br>
+				</div>
+				<div class="item">
+					<span>京ICP备15067359号</span><br> <a
+						href="http://www.bjjubao.org/" target="_blank">北京互联网举报中心</a><br>
+					<a href="http://www.bjwhzf.gov.cn/accuse.do" target="_blank">北京12318文化市场举报热线</a>
+				</div>
+				<div class="item">
+					<a href="//www.miitbeian.gov.cn/" target="_blank">闽ICP证777777号</a><br>
+					<a href="/about/qualification" target="_blank">闽网文[2017]0948-099号</a>
+				</div>
+				<div class="item">
+					<span>节目制作经营许可证（闽）字第05178号</span><br> <a
+						href="http://www.cyberpolice.cn" target="_blank">公安部网络违法犯罪举报网站</a>
+				</div>
+				<div class="item-link5 hidden"></div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<img src="customer/images/favicon1.png" alt="#">
+			<p>本站不提供任何视听上传服务，所有内容均来自视频分享站点所提供的公开引用资源。Copyright © 2017 Hi.
+				保留所有权利</p>
+		</div>
+	</div>
+
+	<a href="javascript:;" id="back_top" class="iconfont icon-up"></a>
+	<script type="text/javascript" src="static/js/userindex.js"></script>
+	<script src="customer/js/jquery.min.js"></script>
+	<script src="static/js/JquerySession.js"></script>
+	<script src="customer/js/script.js"></script>
+	<script src="customer/js/sliderbox.js"></script>
+	<script src="customer/js/tab.js"></script>
+</body>
+</html>

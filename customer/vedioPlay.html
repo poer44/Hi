@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hi~Video</title>
+<link rel="stylesheet" type="text/css"
+	href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="font/iconfont.css">
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<script src="dist/js/lib/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="videoCT.css">
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="css/toastr.css" />
+<script type='text/javascript' src="videoCT.js"></script>
+<script type='text/javascript' src="index.js"></script>
+
+<style>
+.toast-top-right{
+	margin-top:50px;
+}
+
+.container {
+	width: 1000px;
+}
+
+.commentbox {
+	width: 900px;
+	margin: 20px auto;
+}
+
+.mytextarea {
+	width: 100%;
+	overflow: auto;
+	word-break: break-all;
+	height: 100px;
+	color: #000;
+	font-size: 1em;
+	resize: none;
+}
+
+.comment-list {
+	width: 900px;
+	margin: 20px auto;
+	clear: both;
+	padding-top: 20px;
+}
+
+.comment-list .comment-info {
+	position: relative;
+	margin-bottom: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+.comment-list .comment-info header {
+	width: 10%;
+	position: absolute;
+}
+
+.comment-list .comment-info header img {
+	width: 100%;
+	border-radius: 50%;
+	padding: 5px;
+}
+
+.comment-list .comment-info .comment-right {
+	padding: 5px 0px 5px 11%;
+}
+
+.comment-list .comment-info .comment-right h3 {
+	margin: 5px 0px;
+}
+
+.comment-list .comment-info .comment-right .comment-content-header {
+	height: 25px;
+}
+
+.comment-list .comment-info .comment-right .comment-content-header span,.comment-list .comment-info .comment-right .comment-content-footer span
+	{
+	padding-right: 2em;
+	color: #aaa;
+}
+
+.comment-list .comment-info .comment-right .comment-content-header span,.comment-list .comment-info .comment-right .comment-content-footer span.reply-btn,.send,.reply-list-btn
+	{
+	cursor: pointer;
+}
+
+.comment-list .comment-info .comment-right .reply-list {
+	border-left: 3px solid #ccc;
+	padding-left: 7px;
+}
+
+.comment-list .comment-info .comment-right .reply-list .reply {
+	border-bottom: 1px dashed #ccc;
+}
+
+.comment-list .comment-info .comment-right .reply-list .reply div span {
+	padding-left: 10px;
+}
+
+.comment-list .comment-info .comment-right .reply-list .reply p span {
+	padding-right: 2em;
+	color: #aaa;
+}
+
+.sp1 {
+	display: block;
+	width: 100px;
+	font-size: 15px;
+	color: #999;
+	text-align:center;
+}
+
+.sp {
+	float: left;
+}
+
+.sp2 {
+	font-size: 14px;
+	font-weight: bold;
+	text-align:center;
+	display:block;
+	width: 100px;
+}
+
+.nav-1 {
+	font-size: 15px;
+	float: left;
+	margin-left: 40px;
+	margin-top: 17px;
+	font-weight: 500;
+	color: #888;
+}
+
+ul {
+	list-style-type: none;
+}
+
+#showWord {
+	position: absolute;
+	z-index: 99;
+	margin-left: 650px;
+	opacity: 0.5;
+}
+
+ul,ol,li {
+	list-style: none;
+}
+
+a {
+	display: block;
+	color: #333;
+	text-decoration: none;
+}
+</style>
+
+<script type="text/javascript">
+	$(function() {
+		$(".guide-item").hover(function() {
+			$(this).addClass("hover");
+		}, function() {
+			$(this).removeClass("hover");
+		});
+		$(".showgh").hover(function() {
+			$(".gh").css("display", "block");
+		});
+		$(".showgh").mouseleave(function() {
+			$(".gh").css("display", "none");
+		});
+	});
+</script>
+</head>
+<body>
+	<!-- 最顶部 -->
+	<div class="header-top"
+		style="background-color: #fff;border-bottom: 2px solid gainsboro;">
+		<!--顶部栏-->
+		<div class="auto-width">
+			<h1 class="logo fl" style="margin-left: 100px;margin-top: -3px;">
+				<a href="../index.html"><img src="images/logo1.png"
+					alt="图标：hihi"></a>
+			</h1>
+			<!--logo图标-->
+			<a href="search.html?typeid=1" class="nav-1"
+				style="margin-left: 80px;">娱乐</a> <a href="search.html?typeid=2"
+				class="nav-1">游戏</a> <a href="search.html?typeid=3" class="nav-1">动画</a>
+			<a href="search.html?typeid=4" class="nav-1">音乐</a> <a
+				href="search.html?typeid=5" class="nav-1">舞蹈</a>
+			<ul class="header-guide fr">
+				<li class="guide-item upload showgh" id="uploadV" style="display:none;">
+				<a href="information.jsp"
+					style="color:#333;"> <i class="iconfont icon-upload"></i>
+				</a>
+					<div class="gh"
+						style="display:none;position: absolute;top: 42px;width: 80px;border-radius: 1px;margin-top: 10px;">
+						<p>
+							<a target="_blank" href="information.jsp" style="color: #333;margin-top: 20px;">上传视频</a>
+						</p>
+					</div></li>
+				<!--登录注册跳转-->
+				<li class="guide-item guide-user user-logined"><a
+					href="../user_login.html" id="userinfo" style="color:#333;">登录/注册</a>
+					<input type="hidden" id="userid" class="form-control">
+					<div class="guide-hover" id="userinfobottom"
+						style="background-color: #FFFFFF;position: absolute;top: 42px;width: 100px;border-radius: 1px;">
+						<p>
+							<a target="_blank" href="information.jsp"
+								style="margin-top: 15px;margin-bottom: 10px;margin-left: 5px;">个人信息</a>
+							<a href="../userlogout.htm"
+								style="margin-top: 15px;margin-bottom: 10px;margin-left: 5px;">退出</a>
+						</p>
+					</div></li>
+			</ul>
+		</div>
+	</div>
+
+	<!--视频信息界面-->
+	<div id="v"
+		style="margin: auto;width: 800px;margin-bottom: 10px;margin-top: 80px;">
+		<span style="font-size: 30px;margin-left: -10px;color: #333;"
+			id="videoname"></span><br> <br> <span
+			style="font-size: 15px;color: #888;" id="typename"></span> <img
+			style="margin-left: 20px;" src="images/hiRight.jpg" width="24px" height="24px" id="userim"></img> <span
+			style="color: gray;font-size: 15px;" id="author"></span>
+		<span style="margin-left: 20px;color: #888;" id="uptime"></span>
+	</div>
+	<!--走马灯  -->
+	<div style="float: left;margin-left: 2%;margin-top: 10px;">
+		<marquee direction="up" scrollamount="5" behavior="alternate"
+			height="600px">
+			<img src="images/hiRight.jpg" />
+		</marquee>
+	</div>
+	<div style="float: right;margin-right: 2%;margin-top: 10px;">
+		<marquee direction="down" scrollamount="5" behavior="alternate"
+			height="600px">
+			<img src="images/hiLeft.jpg" />
+		</marquee>
+	</div>
+	<!--视频播放界面-->
+	<input type="hidden" id="getUrlData" class="form-control">
+	<div id=""
+		style="margin: auto;width: 1000px;margin-bottom: 10px;margin-top: 20px;">
+		<div>
+			<section id="videoScreen">
+				<video width="100%" height="100%" id="video1"></video>
+				<div id="showWord">
+					<img src="images/favicon1.png" />
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<div id="v2"
+		style=" background-color:#FFEBCD;border:1px solid #DCDCDC;margin: auto;width: 800px;margin-top: 10px;overflow: hidden;">
+		<span class="sp"> <span class="sp1">播放</span> <span class="sp2"
+			id="play"></span>
+		</span> <span class="sp"> <span class="sp1">弹幕</span> <span
+			class="sp2" id="barrage"></span>
+		</span> <span class="sp"> <span
+			class="sp1">评论</span> <span class="sp2" id="commentcount"></span>
+		</span> 
+		<span class="sp love" style="width: 40px;margin-left: 360px;">
+			<span class="sp1" style="padding-top: 5px;width:40px">
+			<img class="loveImg"  width="30" height="30" src="images/uLove.png"/><!-- src="images/love.png" -->
+			</span>
+		</span> 
+		<span class="sp" style="width:50px"> 
+		<span class="sp1 loveFont" style="width:50px">收藏</span> 
+		<span class="sp2 loveNumber" id="collection" style="width:50px"></span>
+		</span>
+	</div>
+
+	<!--评论区-->
+	<div class="container" id="commentarea" style="margin-top:10px;">
+		<div class="commentbox">
+			<textarea cols="80" rows="50" placeholder="来说几句吧......"
+				class="mytextarea" id="content" style="border: 1px solid gray;"></textarea>
+			<div class="btn btn-info pull-right" id="comment">评论</div>
+		</div>
+		<div class="comment-list"></div>
+	</div>
+	
+	<!-- 加载更多 -->
+	<div align="center">
+	<input type="hidden" value=5 id="moreC">
+	<a onclick="moreComm()" href="javascript:;" style="font-size:20px;width:100px;margin-bottom: 10px" id="moreComm">加载更多</a>
+	</div>
+	
+	
+	<div id="footer">
+		<div class="container auto-width" style="width:1160px">
+			<div class="footer-top clearfix">
+				<div class="footer-nav fl">
+				
+					 <div class="item">
+							<h5>合作</h5>
+							<p>
+								<a href="http://www.acfun.cn/info/#page=about" target="_blank">关于我们</a><a
+									href="http://www.acfun.cn/info/#page=contact" target="_blank"
+									class="mr0">联系我们</a><br>
+								<a href="http://www.acfun.cn/info/#page=joinus" target="_blank">AC招聘</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>官方</h5>
+							<p>
+								<a href="http://weibo.com/danmushipin/" target="_blank">新浪微博</a><a
+									href="http://tb.am/cbaz8/" target="_blank" class="mr0">官方网店</a><br>
+								<a href="/gamecenter" target="_blank" data-id="1"
+									class="gamePortal">游戏中心</a><a class="i-o-ewm"><span
+									class="i-o-code"><img
+										src="http://cdn.aixifan.com/acfun-pc/2.2.5/img/erweima.jpg"></span>
+									微信公众号</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>下载</h5>
+							<p>
+								<a href="http://www.acfun.cn/app/" target="_blank" class="mr0">移动客户端</a><span
+									class="new">new</span><br>
+								<a href="http://www.acfun.cn/emot/" target="_blank" class="mr0">AC娘表情包</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>友情链接</h5>
+							<p>
+								<a href="http://lg.dianbo.me/index.php" target="_blank">AC大逃杀</a>
+							</p>
+						</div>
+						<span class="line"></span>
+						<div class="item">
+							<h5>反馈</h5>
+							<p>
+								<a href="http://www.acfun.cn/feedback/" target="_blank">意见反馈</a><a
+									href="http://www.acfun.cn/report/" target="_blank">举报</a><a
+									href="http://www.acfun.cn/about/help" target="_blank"
+									class="mr0">帮助中心</a><br>
+								<a href="http://www.acfun.cn/info/#page=disclaimer"
+									target="_blank">免责声明</a><a
+									href="http://www.acfun.cn/info/#page=agreement" target="_blank">用户协议</a><a
+									href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzgwMDA1NTU2NF8zMDU4NzZfODAwMDU1NTY0XzJf"
+									target="_blank">联系客服</a>
+							</p>
+						</div>
+					</div> 
+				<div class="footer-img fr">
+					<img src="images/footer-logo.gif" alt="#">
+				</div>
+			</div>
+			<div class="footer-middle clearfix">
+				<div class="item">
+					<i class="icon icon-1"></i>中国互联网举报中心<br>
+					<br> <i class="icon icon-2"></i><span>网络文化经营单位</span><br>
+				</div>
+				<div class="item">
+					<span>京ICP备15067359号</span><br> <a
+						href="http://www.bjjubao.org/" target="_blank">北京互联网举报中心</a><br>
+					<a href="http://www.bjwhzf.gov.cn/accuse.do" target="_blank">北京12318文化市场举报热线</a>
+				</div>
+				<div class="item">
+					<a href="//www.miitbeian.gov.cn/" target="_blank">闽ICP证777777号</a><br>
+					<a href="/about/qualification" target="_blank">闽网文[2017]0948-099号</a>
+				</div>
+				<div class="item">
+					<span>节目制作经营许可证（闽）字第05178号</span><br> <a
+						href="http://www.cyberpolice.cn" target="_blank">公安部网络违法犯罪举报网站</a>
+				</div>
+				<div class="item-link5 hidden"></div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<img src="images/favicon1.png" alt="#">
+			<p>本站不提供任何视听上传服务，所有内容均来自视频分享站点所提供的公开引用资源。Copyright © 2017 Hi.
+				保留所有权利</p>
+		</div>
+	</div>
+	
+	<script src="js/jquery.comment.js"></script>
+	<script type="text/javascript" src="../static/js/userplay.js"></script>
+	<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+	<script src="../static/js/JquerySession.js"></script>
+	<script type="text/javascript" src="js/tip.js" ></script>
+	<script type="text/javascript" src="js/toastr.js" ></script>
+	
+	<script>
+	function isEmptyObject(e) {
+		var t;
+		for (t in e)
+			return !1;
+		return !0
+	}
+ 	function downloadJudge(){
+ 		var hrefurl=$("#downloadPer").attr("href");
+		$("#downloadPer").removeAttr("href");
+		var judge= $.session.get("playuser");
+		console.log(judge);
+		if(judge!=null&&judge!=""&&judge!="null"){
+			$("#downloadPer").attr("href",hrefurl);
+			toastr.success("开始下载~");
+		}else{
+			toastr.warning("下载请先登录！");
+		}
+    } 
+	function addPlay(){
+			$.ajax({
+				url : '../addPlayOne.htm',
+				type : 'post',
+				data : {
+					videoid : $('#getUrlData').val()
+				},
+				dataType : 'text',
+				async : false,
+				success : function(data) {
+					if (isEmptyObject(data)) {
+						toastr.error("播放出错，请联系管理员！");
+					} else if (data != "-1") {
+						$("#playorpause").removeAttr("onclick");
+						$("#play").html(data);
+					}
+				},
+				error : function() {
+					toastr.error("播放量出错，请联系管理员！");
+				}
+			})
+	    }
+		//初始化数据
+		var arr = [];
+		function getUrlParam1(name) {
+			//构造一个含有目标参数的正则表达式对象
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			//匹配目标参数 
+			var r = window.location.search.substr(1).match(reg);
+			//返回参数值
+			if (r != null)
+				return unescape(r[2]);
+			return null;
+		}
+		function moreComm(){
+			arr=[];
+			console.log(parseInt($("#moreC").val())+"++++"+parseInt($("#commentcount").html()));
+			if(parseInt($("#moreC").val())<parseInt($("#commentcount").html())){
+			var pagenu=parseInt($("#moreC").val())+5;
+			if(pagenu>parseInt($("#commentcount").html()))
+				pagenu=parseInt($("#commentcount").html())
+			$("#moreC").val(pagenu);
+			var urlData = getUrlParam1("videoid");
+			// 将数据填充到input框里面
+			$("#getUrlData").val(urlData);
+			//var videoid = {"videoid" : $('#getUrlData').val()};
+			var reg = /^[0-9]*$/;
+			if ($('#getUrlData').val() != ""&& reg.test($("#getUrlData").val())) {
+				$.ajax({
+					url : "getvideocomment.htm",
+					data:{
+						videoid:$('#getUrlData').val(),
+						pagenum:$("#moreC").val(),
+					},
+					async : false,
+					success : function(videocomment) {
+						$.each(videocomment, function(i, item) {
+							var userimgurl;
+							var username;
+							$.ajax({
+								url : "../playVideoAuthor.htm",
+								type:'post',
+								data:{
+									userid:item.userid
+									},
+								async:false,
+								success:function(user){
+									userimgurl="../"+user.imgurl;
+									username=user.username;
+									}
+								});
+							console.log(userimgurl);
+							var insert = {
+								"id" : i + 1,
+								"img" : userimgurl,
+								"replyName" : username,
+								"beReplyName" : "匿名",
+								"content" : item.content,
+								"time" : item.commenttime,
+								address : "漳州",
+								osname : "",
+								browse : "谷歌",
+								replyBody : []
+							};
+							arr.push(insert);
+						});
+						$(".comment-list").addCommentList({
+							data : arr,
+							add : ""
+						});
+					}
+				});
+			} 
+		}else{
+			toastr.warning("到底咯!");
+		}
+		} 
+		$(function() {
+			function getUrlParam(name) {
+				//构造一个含有目标参数的正则表达式对象
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				//匹配目标参数 
+				var r = window.location.search.substr(1).match(reg);
+				//返回参数值
+				if (r != null)
+					return unescape(r[2]);
+				return null;
+			}
+			var urlData = getUrlParam("videoid");
+			// 将数据填充到input框里面
+			$("#getUrlData").val(urlData);
+			//var videoid = {"videoid" : $('#getUrlData').val()};
+			var reg = /^[0-9]*$/;
+			if ($('#getUrlData').val() != ""&& reg.test($("#getUrlData").val())) {
+				$.ajax({
+					url : "getvideocomment.htm",
+					data:{
+						videoid:$('#getUrlData').val(),
+						pagenum:5,
+					},
+					async : false,
+					success : function(videocomment) {
+						$.each(videocomment, function(i, item) {
+							var userimgurl;
+							var username;
+							$.ajax({
+								url : "../playVideoAuthor.htm",
+								type:'post',
+								data:{
+									userid:item.userid
+									},
+								async:false,
+								success:function(user){
+									userimgurl="../"+user.imgurl;
+									username=user.username;
+									}
+								});
+							var insert = {
+								"id" : i + 1,
+								"img" : userimgurl,
+								"replyName" : username,
+								"beReplyName" : "匿名",
+								"content" : item.content,
+								"time" : item.commenttime,
+								address : "漳州",
+								osname : "",
+								browse : "谷歌",
+								replyBody : []
+							};
+							arr.push(insert);
+						});
+						$(".comment-list").addCommentList({
+							data : arr,
+							add : ""
+						});
+					}
+				});
+			}
+			$(".love").click(function() {
+				if($("#userid").val()!=""){
+					if ($(".loveImg").attr("src")=="images/love.png") {
+						$.ajax({
+							url : "cancelcollection.htm",
+							data : {"userid":$("#userid").val(),"videoid":$('#getUrlData').val()},
+							async : false,
+							success : function(msg) {
+								if(msg=="success"){
+									$(".loveImg").attr("src", "images/uLove.png");
+									var num=parseInt($("#collection").html());
+									if(num>0){
+            							$("#collection").html(num-1); 
+            						}
+								}
+							}
+						});
+					}else if($(".loveImg").attr("src")=="images/uLove.png"){
+						$.ajax({
+							url : "videocollection.htm",
+							data : {"userid":$("#userid").val(),"videoid":$('#getUrlData').val()},
+							async : false,
+							success : function(msg) {
+								 if(msg=="success"){
+								 	$(".loveImg").attr("src", "images/love.png");
+								 	var num=parseInt($("#collection").html());
+								 	$("#collection").html(num+1); 
+								 }
+							}
+						});
+					}
+				}else{
+					toastr.warning("尚未登录");
+				}
+				});
+			$(".showgh").hover(function() {
+				$(".gh").css("display", "block");
+			});
+			$(".showgh").mouseleave(function() {
+				$(".gh").css("display", "none");
+			});
+
+			$("#comment").click(function() {
+				if ($("#userid").val() != "") {
+					if($("#content").val()!=""){
+					var obj = new Object();
+					$.ajax({
+						url : "../playVideoAuthor.htm",
+						type:"post",
+						data:{
+							userid:$.session.get("playuser")
+							},
+						async:false,
+						success:function(user){
+							obj.img ="../"+user.imgurl;
+							}
+						});
+					obj.replyName = $("#userinfo").text();
+					obj.content = $("#content").val();
+					obj.browse = "漳州";
+					$.ajax({
+						url : "../whereareufrom.htm",
+						type:"post",
+						datatype:"text",
+						async:false,
+						success:function(data){
+							console.log(data);
+							obj.osname=data;
+							}
+						});
+					/*Properties props=System.getProperties();
+					System.out.println("操作系统："+props.getProperty("os.name")+" "+props.getProperty("os.arch")+" "+props.getProperty("os.version"));*/
+					obj.replyBody = "";/*回复评论*/
+					var commentdata={"videoid":$('#getUrlData').val(),"userid":$("#userid").val(),"content":$("#content").val()};
+					$.ajax({
+						url : "commentvideo.htm",
+						data : commentdata,
+						async : false,
+						success: function(comment){
+							$(".comment-list").addCommentList({
+								data : [],
+								add : obj
+							});/*该方法在Jquery.comment.js*/
+							var num=parseInt($("#commentcount").html());
+            				$("#commentcount").html(num+1); 
+							$("#content").val("");
+							toastr.success("评论成功！");
+   						}
+					});
+					}else{
+						toastr.warning("请输入评论~");
+					}
+				} else {
+					toastr.warning("尚未登录！");
+				}
+			});
+		});
+	</script>
+</body>
+</html>
